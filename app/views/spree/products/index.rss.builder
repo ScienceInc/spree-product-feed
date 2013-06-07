@@ -1,4 +1,4 @@
-@products = Product.available.includes(:variants, :option_values)
+@products = Product.available.where("count_on_hand>0").includes(:variants, :option_values)
 xml.instruct! :xml, :version=>"1.0"
 xml.rss(:version=>"2.0", "xmlns:g" => "http://base.google.com/ns/1.0"){
   xml.channel{
