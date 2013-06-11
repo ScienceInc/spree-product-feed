@@ -1,4 +1,3 @@
-@products = Spree::Product.available.where("spree_products.count_on_hand>0").includes(:variants)
 xml.instruct! :xml, :version=>"1.0"
 xml.rss(:version=>"2.0", "xmlns:g" => "http://base.google.com/ns/1.0"){
   xml.channel{
@@ -16,14 +15,13 @@ xml.rss(:version=>"2.0", "xmlns:g" => "http://base.google.com/ns/1.0"){
             xml.link(product_url(product))
             xml.guid(variant.id)
             xml.sku(product.sku)
-    #       xml.vendor_sku(product.vendor_sku)
             xml.weight(product.weight)
-            xml.tag!('g:brand', 'ShoeLove')
-            xml.tag!('g:gender', 'female')
-            xml.tag!('g:size', variant.options_text.match(/[.\d]+/)[0].to_f)
+            xml.tag!('g:brand', 'Science') #todo
+            xml.tag!('g:gender', 'female') #todo
+            xml.tag!('g:size', variant.options_text.match(/[.\d]+/)[0].to_f) #todo - numeric size
             xml.tag!('g:color', product.property("Color")||"Black")
-            xml.tag!('g:google_product_category', 'Apparel & Accessories > Shoes')
-            xml.tag!('g:product_type', 'Apparel & Accessories > Shoes')
+            xml.tag!('g:google_product_category', 'Apparel & Accessories') #todo
+            xml.tag!('g:product_type', 'Apparel & Accessories') #todo
             xml.tag!('g:age_group', 'Adult')
             if product.images.count > 0
               xml.tag!('g:image_link', product.images.first.attachment.url(:large))
@@ -32,7 +30,7 @@ xml.rss(:version=>"2.0", "xmlns:g" => "http://base.google.com/ns/1.0"){
             xml.tag!('g:price', product.price)
             xml.tag!('g:condition', 'new')
             xml.tag!('g:id', variant.id)
-            xml.tag!('g:mpn', "shoelove#{variant.id}")
+            xml.tag!('g:mpn', "science#{variant.id}") #todo
             xml.tag!('g:availability', product.count_on_hand > 0 ? 'in stock' : 'out of stock')
         end
       end
